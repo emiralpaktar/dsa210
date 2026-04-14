@@ -69,4 +69,4 @@ python hypothesis_tests.py
 ---
 
 ## AI Tool Disclosure
-This project used Claude (Anthropic) for assistance with code structure, statistical test selection, and documentation. All analytical decisions, interpretations, and final code were reviewed and validated by the student.
+
