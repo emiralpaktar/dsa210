@@ -4,7 +4,12 @@
 ---
 
 ## Research Question
-Although higher education is associated with greater spending, campaign engagement does not scale uniformly across education tiers — and the highest concentration of high-spending but non-responsive customers is found among lower education groups. This project investigates whether education level, relative income, and macroeconomic context at enrollment (CPI) can jointly explain campaign disengagement and identify the most untapped customer segments.
+Although higher education is associated with greater spending, campaign engagement does
+not scale uniformly across education tiers — and the highest concentration of high-spending
+but non-responsive customers is found among lower education groups. This project
+investigates whether education level, relative income, and macroeconomic context at
+enrollment (CPI) can jointly explain campaign disengagement and identify the most untapped
+customer segments
 
 ---
 
