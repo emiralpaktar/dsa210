@@ -4,7 +4,9 @@
 ---
 
 ## Research Question
-Among highly educated customers (PhD, Master's), spending is highest yet campaign responsiveness is lowest. This project investigates whether education level, relative income, and the macroeconomic environment at enrollment (CPI) can explain this paradox and help identify high-potential but under-engaged customer segments.
+Although higher education is associated with greater spending, campaign engagement does not scale uniformly across education tiers — and the highest concentration of high-spending 
+but non-responsive customers is found among lower education groups. This project investigates whether education level, relative income, and macroeconomic context at
+enrollment (CPI) can jointly explain campaign disengagement and identify the most untapped customer segments.
 
 ---
 
