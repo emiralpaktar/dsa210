@@ -88,14 +88,14 @@ save("03_campaign_engagement_by_education.png")
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# 5. Spend vs. campaign engagement across education groups (scatter)
+# 5. The PhD paradox: spend vs. campaign engagement (scatter)
 # ═══════════════════════════════════════════════════════════════════════════════
-print("\n── 5. Spend vs. campaign engagement scatter ──")
+print("\n── 5. PhD paradox scatter ──")
 fig, ax = plt.subplots(figsize=(8, 5))
 for edu, grp in df.groupby("Education"):
     ax.scatter(grp["TotalSpend"], grp["CampaignScore"],
                alpha=0.35, s=18, label=edu)
-ax.set(title="Total Spend vs. Campaign Score by Education Group",
+ax.set(title="Total Spend vs. Campaign Score by Education",
        xlabel="Total Spend ($)", ylabel="Campaign Score (0–6)")
 ax.legend(title="Education", fontsize=9)
 save("04_spend_vs_campaign_scatter.png")
@@ -178,5 +178,62 @@ sns.heatmap(corr, mask=mask, annot=True, fmt=".2f", cmap="RdBu_r",
             center=0, linewidths=0.5, ax=ax, annot_kws={"size": 8})
 ax.set_title("Correlation Heatmap — Key Features")
 save("09_correlation_heatmap.png")
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 11. H8 — Campaign score among high spenders: low vs. high education (box)
+# ═══════════════════════════════════════════════════════════════════════════════
+print("\n── 11. H8: Campaign score — low vs. high education among high spenders ──")
+LOW_EDU  = ["Basic", "2n Cycle"]
+HIGH_EDU = ["Graduation", "Master", "PhD"]
+
+high_spenders = df[df["HighPotential"] == 1].copy()
+high_spenders["EduGroup"] = high_spenders["Education"].apply(
+    lambda x: "Low Education\n(Basic, 2n Cycle)" if x in LOW_EDU
+              else "High Education\n(Graduation, Master, PhD)"
+)
+
+fig, ax = plt.subplots(figsize=(7, 4))
+sns.boxplot(data=high_spenders, x="EduGroup", y="CampaignScore",
+            palette=["#e07b6a", "#6aaee0"], ax=ax,
+            order=["Low Education\n(Basic, 2n Cycle)", "High Education\n(Graduation, Master, PhD)"],
+            flierprops={"markersize": 3})
+ax.set(title="Campaign Score Among High-Spending Customers\nby Education Group",
+       xlabel="Education Group", ylabel="Campaign Score (0–6)")
+save("10_h8_campaign_score_high_spenders.png")
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 12. H9 — HasChild x TargetSegment (grouped bar)
+# ═══════════════════════════════════════════════════════════════════════════════
+print("\n── 12. H9: HasChild vs. TargetSegment ──")
+child_seg = df.groupby("HasChild")["TargetSegment"].mean() * 100
+child_seg.index = ["No Children", "Has Children"]
+
+fig, ax = plt.subplots(figsize=(6, 4))
+bars = ax.bar(child_seg.index, child_seg.values,
+              color=[PALETTE[0], PALETTE[1]], edgecolor="white", width=0.5)
+ax.bar_label(bars, fmt="%.1f%%", padding=3, fontsize=10)
+ax.set(title="TargetSegment Rate by Child Status",
+       xlabel="", ylabel="% in TargetSegment")
+ax.yaxis.set_major_formatter(mticker.PercentFormatter())
+save("11_h9_haschild_vs_targetsegment.png")
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 13. H10 — Total spend distribution across education groups (box)
+# ═══════════════════════════════════════════════════════════════════════════════
+print("\n── 13. H10: Total spend by education (box) ──")
+df_edu2 = df[df["Education"].isin(EDU_ORDER)].copy()
+df_edu2["Education"] = pd.Categorical(df_edu2["Education"], categories=EDU_ORDER, ordered=True)
+
+fig, ax = plt.subplots(figsize=(8, 5))
+sns.boxplot(data=df_edu2, x="Education", y="TotalSpend", order=EDU_ORDER,
+            palette="muted", ax=ax, flierprops={"markersize": 3})
+ax.set(title="Total Spend Distribution by Education Level",
+       xlabel="Education", ylabel="Total Spend ($)")
+ax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda x, _: f"${x:,.0f}"))
+save("12_h10_spend_by_education_box.png")
+
 
 print("\n✓ EDA complete. All figures saved to reports/figures/")
