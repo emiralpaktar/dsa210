@@ -88,9 +88,9 @@ save("03_campaign_engagement_by_education.png")
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# 5. The PhD paradox: spend vs. campaign engagement (scatter)
+# 5. Spend vs. campaign engagement across education groups (scatter)
 # ═══════════════════════════════════════════════════════════════════════════════
-print("\n── 5. PhD paradox scatter ──")
+print("\n── 5. Spend vs. campaign engagement scatter ──")
 fig, ax = plt.subplots(figsize=(8, 5))
 for edu, grp in df.groupby("Education"):
     ax.scatter(grp["TotalSpend"], grp["CampaignScore"],
